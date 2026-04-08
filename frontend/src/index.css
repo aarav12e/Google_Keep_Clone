@@ -1,0 +1,190 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Reset & Global ────────────────────────────── */
+:root {
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: oklch(var(--b2));
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* ── Scrollbar ─────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: oklch(var(--bc) / 0.2);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: oklch(var(--bc) / 0.35);
+}
+
+/* ── Glassmorphism Utility ─────────────────────── */
+@layer components {
+  .glass-panel {
+    background: oklch(var(--b1) / 0.7);
+    backdrop-filter: blur(20px) saturate(1.8);
+    -webkit-backdrop-filter: blur(20px) saturate(1.8);
+    border: 1px solid oklch(var(--bc) / 0.08);
+  }
+
+  .glass-header {
+    background: oklch(var(--b1) / 0.82);
+    backdrop-filter: blur(24px) saturate(1.6);
+    -webkit-backdrop-filter: blur(24px) saturate(1.6);
+    border-bottom: 1px solid oklch(var(--bc) / 0.06);
+    box-shadow: 0 4px 30px oklch(var(--bc) / 0.04);
+  }
+
+  .glass-drawer {
+    background: oklch(var(--b1) / 0.65);
+    backdrop-filter: blur(28px) saturate(1.5);
+    -webkit-backdrop-filter: blur(28px) saturate(1.5);
+    border-right: 1px solid oklch(var(--bc) / 0.06);
+  }
+}
+
+/* ── Note Cards ────────────────────────────────── */
+.note-card {
+  border-radius: 16px;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.35s ease,
+              border-color 0.3s ease;
+  border: 1px solid oklch(var(--bc) / 0.08);
+  will-change: transform;
+}
+
+.note-card:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 24px 48px oklch(var(--bc) / 0.12);
+  border-color: oklch(var(--p) / 0.25);
+}
+
+.note-card:active {
+  transform: translateY(-2px) scale(0.99);
+}
+
+/* ── Form ──────────────────────────────────────── */
+.note-form {
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border: 2px solid oklch(var(--bc) / 0.08);
+  border-radius: 16px;
+  box-shadow: 0 2px 12px oklch(var(--bc) / 0.06);
+}
+
+.note-form:focus-within {
+  border-color: oklch(var(--p) / 0.4);
+  box-shadow: 0 8px 32px oklch(var(--p) / 0.12);
+}
+
+/* ── Navigation Active State ───────────────────── */
+.nav-item-active {
+  background: oklch(var(--p) / 0.12) !important;
+  color: oklch(var(--p)) !important;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.nav-item-active .MuiListItemIcon-root {
+  color: oklch(var(--p)) !important;
+}
+
+/* ── Theme Transition ──────────────────────────── */
+[data-theme] * {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* override transition on drag to prevent jank */
+[data-rbd-draggable-context-id] * {
+  transition: none !important;
+}
+
+/* ── GSAP Animation States ─────────────────────── */
+.gsap-reveal {
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.gsap-scale-reveal {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.gsap-slide-right {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+
+/* ── Floating Label pulse ring ─────────────────── */
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 oklch(var(--p) / 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px oklch(var(--p) / 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 oklch(var(--p) / 0);
+  }
+}
+
+/* ── Theme Switcher Button ─────────────────────── */
+.theme-btn {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.3s ease;
+}
+
+.theme-btn:hover {
+  transform: scale(1.08);
+}
+
+.theme-btn:active {
+  transform: scale(0.95);
+}
+
+/* ── Empty State ───────────────────────────────── */
+.empty-state-icon {
+  color: oklch(var(--bc) / 0.12);
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+/* ── Badge pulse for note count ────────────────── */
+.badge-pulse {
+  animation: pulse-ring 2s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
+}
+
+/* ── Responsive utilities ──────────────────────── */
+@media (max-width: 640px) {
+  .note-form {
+    width: 100% !important;
+    max-width: 100%;
+  }
+}
