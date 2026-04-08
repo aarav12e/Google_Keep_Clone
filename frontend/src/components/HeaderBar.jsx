@@ -29,7 +29,6 @@ const themeOptions = [
 ];
 
 const HeaderBar = ({ open, handleDrawer, currentTheme, setCurrentTheme }) => {
-  const logo = 'https://seeklogo.com/images/G/google-keep-logo-0BC92EBBBD-seeklogo.com.png';
   const headerRef = useRef(null);
 
   useEffect(() => {
@@ -54,11 +53,11 @@ const HeaderBar = ({ open, handleDrawer, currentTheme, setCurrentTheme }) => {
           >
             <Menu />
           </IconButton>
-          <img
-            src={logo}
-            alt="Keep logo"
-            style={{ width: 30, borderRadius: 8, marginLeft: 4 }}
-          />
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="oklch(var(--p))" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: 6 }}>
+            <rect x="4" y="4" width="16" height="16" rx="2" />
+            <line x1="8" y1="10" x2="16" y2="10" />
+            <line x1="8" y1="14" x2="13" y2="14" />
+          </svg>
           <Heading>Keep Clone</Heading>
         </Box>
 
