@@ -34,9 +34,10 @@ const DeleteNote = ({ deleteNote }) => {
   const cardRef = useRef(null);
 
   useEffect(() => {
-    if (cardRef.current) {
+    const el = cardRef.current;
+    if (el) {
       gsap.fromTo(
-        cardRef.current,
+        el,
         { y: 40, opacity: 0, scale: 0.92 },
         {
           y: 0,
@@ -45,7 +46,7 @@ const DeleteNote = ({ deleteNote }) => {
           duration: 0.6,
           ease: 'power3.out',
           scrollTrigger: {
-            trigger: cardRef.current,
+            trigger: el,
             start: 'top 90%',
             toggleActions: 'play none none none',
           },
@@ -55,7 +56,7 @@ const DeleteNote = ({ deleteNote }) => {
 
     return () => {
       ScrollTrigger.getAll().forEach((t) => {
-        if (t.trigger === cardRef.current) t.kill();
+        if (t.trigger === el) t.kill();
       });
     };
   }, []);
