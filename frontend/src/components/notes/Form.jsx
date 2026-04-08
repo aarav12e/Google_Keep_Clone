@@ -12,9 +12,11 @@ const Container = styled(Box)`
   flex-direction: column;
   margin: auto;
   width: 600px;
-  max-width: 100%;
+  max-width: calc(100vw - 32px);
+  box-sizing: border-box;
   min-height: 30px;
   padding: 16px 20px;
+  border-radius: 12px;
 `;
 
 const note = {
@@ -51,6 +53,15 @@ const Form = () => {
       );
     }
   }, [showTextField]);
+
+  const handleSave = (e) => {
+    if (e) e.stopPropagation();
+    setShowTextField(false);
+    if (addNoteData.heading || addNoteData.text) {
+      addNote(addNoteData);
+    }
+    setAddNoteData({ ...note, id: uuid() });
+  };
 
   const handleClickAway = () => {
     setShowTextField(false);
@@ -128,6 +139,13 @@ const Form = () => {
                 style={{ fontFamily: 'Inter' }}
               >
                 Close
+              </button>
+              <button
+                className="btn btn-primary btn-sm"
+                onClick={handleSave}
+                style={{ fontFamily: 'Inter' }}
+              >
+                Save
               </button>
             </Box>
           )}

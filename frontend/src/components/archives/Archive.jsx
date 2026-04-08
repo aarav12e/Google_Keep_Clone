@@ -27,6 +27,11 @@ const StyledCard = styled(Card)`
     box-shadow: 0 20px 50px oklch(var(--bc) / 0.12);
     border-color: oklch(var(--s) / 0.3);
   }
+
+  @media (max-width: 599px) {
+    width: calc(100vw - 32px);
+    margin: 8px 0;
+  }
 `;
 
 const Archive = ({ archive }) => {
